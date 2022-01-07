@@ -7,8 +7,7 @@
         private Node<T> last;
         private int size;
         private Node<T> header = new Node<T>(null,this.header,this.header);
-
-public void printList(){
+        public void printList(){
     Node<T> a;
    int count = 0;
     for (a = first;size>count;a=a.next){
@@ -126,6 +125,7 @@ public void printList(){
 
             return del(node(index));
         }
+
         public T remove(T value){
     Node<T> a;
    Node<T> result;
@@ -167,33 +167,24 @@ public void printList(){
             return element;
         }
         private  void swap(Node<T> first, Node<T> second) {
-
-
             Node<T> a = first;
-           Node<T> b = second;
-           a.next = b.next;
-           a.prev = b.prev;
-
-           first = second;
-            second = a;
+            Node<T> b = second;
+            T aElement = a.element;
+            a.element = b.element;
+            b.element = aElement;
         }
+
         public void sort(){
            Node<T> i;
            Node<T> j;
-           int count = size-1;
-           int iter = 0;
-            for ( i = last;count>1; i = i.prev) {
-                count--;
-                for (j = first;iter <count; j = j.next) {
-                   iter++;
+            for ( i = last;i.prev !=null; i = i.prev) {
+                for (j = first;j!=i; j = j.next) {
                     int result = j.element.compareTo(j.next.element);
                     if (result > 0)
                         swap(j, j.next);
                 }
             }
-
         }
-
 
         public int compareTo(MyLinkedList o) {
             return this.size - o.size();
@@ -212,7 +203,8 @@ public void printList(){
 
             @Override
             public int compareTo(Node o) {
-                return element.compareTo((T) o.element);
+
+                return this.element.compareTo((T)o.element);
             }
         }
     }
